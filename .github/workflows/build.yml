@@ -22,7 +22,7 @@ jobs:
       - name: Linter (ESLint)
         run: npm run lint
       - name: Formatter (Prettier)
-        run: npm run prettier --write ./src
+        run: npx prettier --write ./src
       - name: Test (Jest)
         run: CI=true npm run test
       - name: Final Build
