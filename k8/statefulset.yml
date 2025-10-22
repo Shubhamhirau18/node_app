@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nodeapp
+  namespace: production
+  labels:
+    app: nodeapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nodeapp
+  template:
+    metadata:
+      labels:
+        app: nodeapp
+    spec:
+      containers:
+      - name: nodeapp
+        image: nodeapp:arm64
+        ports:
+        - containerPort: 80
+        env:
+        - name: MYSECRET
+          valueFrom:
+            secretKeyRef:
+              name: secret-basic-auth
+              key: mysecret

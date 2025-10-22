@@ -1,21 +1,25 @@
+## node base image 1st stage
 FROM node:15 as builder
 
-WORKDIR
+WORKDIR /app
 
-COPY
+COPY package*.json .
 
-RUN 
+RUN npm install
 
-COPY
+COPY . .
 
-RUN 
+RUN npm run build
 
-FROM
+## nginx alpine 2nd stage
+FROM nginx:alpine
 
-WORKDIR
+WORKDIR /usr/share/nginx/html
 
-COPY
+RUN rm -rf ./*
 
-RUN 
+COPY --from=builder /app/build .
 
-ENTRYPOINT 
+EXPOSE 80
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
