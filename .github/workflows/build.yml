@@ -1,0 +1,29 @@
+name: node-app-pipeline
+run-name: node-app-pipeline
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+defaults:
+  run:
+    working-directory: codebase/rdicidr-0.1.0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 15
+      - name: Install dependencies
+        run: npm install
+      - name: Linter (ESLint)
+        run: npm run lint
+      - name: Formatter (Prettier)
+        run: npx prettier --write ./src
+      - name: Test (Jest)
+        run: CI=true npm run test
+      - name: Final Build
+        run: npm run build

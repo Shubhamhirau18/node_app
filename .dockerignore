@@ -1,0 +1,9 @@
+node_modules/*
+.cache/*
+.npm/*
+.gitignore
+.git/*
+.github/*
+.npm*
+LICENSE
+README.md
